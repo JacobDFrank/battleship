@@ -1,43 +1,34 @@
-import java.awt.*;
-import javax.swing.*;
+import java.awt.Point;
 import java.util.ArrayList;
 
-public class Battleship extends JFrame{
+public class Battleship {
+	private ArrayList<Point> live;
+	private ArrayList<Point> dead;
 
-    public JLabel statusLine = null;
-    public JLabel score = null;
-    public ArrayList<JButton> squares = new ArrayList<JButton>();
-    private JLabel title = null;
+	public Battleship(Point p1, Point p2, Point p3){
+		live = new ArrayList<Point>();
+		dead = new ArrayList<Point>();
+		live.add(p1);
+		live.add(p2);
+		live.add(p3);
+	}
+	public Battleship(ArrayList<Point> _live){
+		live = _live;
+	}
 
-    public Battleship(){
-        setSize(1000,1000);
+	public void kill(Point place){
+		System.out.println(place);
+		if(live.indexOf(place)!=-1){
+			dead.add(place);
+			live.remove(live.indexOf(place));
+		}
+	}
 
-        JPanel statusBar = new JPanel(new GridLayout(1,3));
-        statusBar.add(score = new JLabel(""));
-        statusBar.add(title = new JLabel("Welcome to battleship!"));
-        statusBar.add(statusLine = new JLabel("Player 1, place your battleships"));
-        statusLine.setFont(statusLine.getFont().deriveFont(20f));
-        title.setFont(title.getFont().deriveFont(20f));
-        add(statusBar, BorderLayout.NORTH);
+	public boolean hasPoint(Point p){
+		return (live.indexOf(p)!=-1);
+	}
 
-        JPanel grid = new JPanel(new GridLayout(8,8));
-        for(int i=1;i<9;i++){
-            for(int j=1;j<9;j++){
-                squares.add(new JButton(i+", " + j));
-                grid.add(squares.get(squares.size()-1));
-            }
-        }
-        add(grid, BorderLayout.CENTER);
-
-
-
-    }
-
-    public static void main(String[] args){
-        Battleship mainWindow = new Battleship();
-        mainWindow.setTitle("Battleship game");
-        mainWindow.setLocationRelativeTo(null);
-        mainWindow.setVisible(true);
-		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
+	public boolean isAlive(){
+		return live.size()>0;
+	}
 }
