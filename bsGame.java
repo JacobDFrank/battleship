@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.ArrayList;
+import java.lang.Math;
 
 public class bsGame extends JFrame{
 
@@ -55,7 +56,7 @@ public class bsGame extends JFrame{
 		JButton nButton;
 		for(int i=1;i<9;i++){
 			for(int j=1;j<9;j++){
-				squares.add(nButton = new JButton(i+", " + j));
+				squares.add(nButton = new JButton(j+", " + i));
 				nButton.setBackground(WATER);
 				nButton.setFont(nButton.getFont().deriveFont(20f));
 				//nButton.setContentAreaFilled(true);
@@ -66,6 +67,9 @@ public class bsGame extends JFrame{
 			}
 		}
 		add(grid, BorderLayout.CENTER);
+	}
+	public int randInt(int low, int high){
+		return (int)(Math.random()*(high-low)+low);
 	}
 	public void setupGame(){
 
@@ -78,32 +82,43 @@ public class bsGame extends JFrame{
 		p1Ships = new ArrayList<Battleship>();
 		p2Ships = new ArrayList<Battleship>();
 
-		/*
-		p1Ships.add(new Battleship(new Point(2,3),
-					new Point(2,4),
-					new Point(2,5)));
-		p1Ships.add(new Battleship(new Point(5,6),
-					new Point(5,7),
-					new Point(5,8)));
-		p1Ships.add(new Battleship(new Point(8,1),
-					new Point(8,2),
-					new Point(8,3)));
-		p2Ships.add(new Battleship(new Point(2,3),
-					new Point(2,4),
-					new Point(2,5)));
-		p2Ships.add(new Battleship(new Point(5,6),
-					new Point(5,7),
-					new Point(5,8)));
-		p2Ships.add(new Battleship(new Point(8,1),
-					new Point(8,2),
-					new Point(8,3)));
-		*/
-		p1Ships.add(new Battleship(new Point(1,1),
-					new Point(1,2),
-					new Point(1,3)));
-		p2Ships.add(new Battleship(new Point(1,1),
-					new Point(1,2),
-					new Point(1,3)));
+		int xpos = randInt(1,7);
+		int ypos = randInt(1,4);
+		p1Ships.add(new Battleship(new Point(xpos,ypos),
+					new Point(xpos+1,ypos),
+					new Point(xpos+2,ypos)));
+		System.out.println(xpos+" "+ypos);
+		xpos = randInt(1,7);
+		p1Ships.add(new Battleship(new Point(xpos,4),
+					new Point(xpos,5),
+					new Point(xpos,6)));
+		System.out.println("Vertical at X: "+ xpos);
+		xpos = randInt(1,6);
+		ypos = randInt(7,9);
+		p1Ships.add(new Battleship(new Point(xpos,ypos),
+					new Point(xpos+1,ypos),
+					new Point(xpos+2,ypos)));
+		System.out.println(xpos+" "+ypos);
+
+
+		xpos = randInt(1,7);
+		ypos = randInt(1,4);
+		p2Ships.add(new Battleship(new Point(xpos,ypos),
+					new Point(xpos+1,ypos),
+					new Point(xpos+2,ypos)));
+		System.out.println(xpos+" "+ypos);
+		xpos = randInt(1,7);
+		p2Ships.add(new Battleship(new Point(xpos,4),
+					new Point(xpos,5),
+					new Point(xpos,6)));
+		System.out.println("Vertical at X: "+ xpos);
+		xpos = randInt(1,6);
+		ypos = randInt(7,9);
+		p2Ships.add(new Battleship(new Point(xpos,ypos),
+					new Point(xpos+1,ypos),
+					new Point(xpos+2,ypos)));
+		System.out.println(xpos+" "+ypos);
+
 
 	}
 	public void loadColor(int p){
